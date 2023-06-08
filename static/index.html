@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>句子相似度比较</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    </head>
+    <body>
+        <h1>句子相似度比较</h1>
+        <input type="text" id="sentence1" placeholder="请输入第一个句子">
+        <input type="text" id="sentence2" placeholder="请输入第二个句子">
+        <button id="submit">提交</button>
+
+        <p id="result"></p>
+
+        <script>
+            $(document).ready(function() {
+                $('#submit').click(function() {
+                    var sentence1 = encodeURIComponent($('#sentence1').val());
+                    var sentence2 = encodeURIComponent($('#sentence2').val());
+                    var url = '/simi?var1=' + sentence1 + '&var2=' + sentence2;
+
+                    $.get(url, function(data, status) {
+                        console.log("Data: " + data.result + "\nStatus: " + status);
+                        $("#result").html(data.result);
+                    });
+                });
+            });
+        </script>
+    </body>
+</html>

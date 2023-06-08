@@ -3,7 +3,7 @@ import re
 from flask import Flask, request, jsonify
 
 SERVICE_IP = "127.0.0.1"
-SERVICE_PORT = 8080
+SERVICE_PORT = 8686
 
 tag = Taskflow("pos_tagging", user_dict="user_dict.txt")
 target_types = ['n']

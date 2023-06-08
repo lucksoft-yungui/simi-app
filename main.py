@@ -2,7 +2,7 @@ from paddlenlp import Taskflow
 import re
 from flask import Flask, request, jsonify
 
-SERVICE_IP = "127.0.0.1"
+SERVICE_IP = "0.0.0.0"
 SERVICE_PORT = 8686
 
 tag = Taskflow("pos_tagging", user_dict="user_dict.txt")

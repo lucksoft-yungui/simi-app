@@ -20,7 +20,7 @@ def simi(var1: str, var2: str) -> dict:
     print(tag2)
 
     similarity = compute_similarity(tag1, tag2, target_types)
-    return {"result": f"句子[{var1}]与句子[{var2}]的相似度为{similarity}%"}
+    return {"result": f"句子[{var1}]与句子[{var2}]的相似度为{similarity}%", "tag1": f"{tag1}", "tag2": f"{tag2}"}
 
 
 def compute_similarity(array1, array2, target_types=['n']):
@@ -48,16 +48,19 @@ def remove_all_brackets_content(text):
     return replaced_text
 
 
-app = Flask(__name__,static_folder='static')
+app = Flask(__name__, static_folder='static')
+
 
 @app.route('/')
 def home():
     return app.send_static_file('index.html')
 
+
 @app.route('/simi', methods=['GET'])
 def get_books():
     var1 = request.args.get('var1')
     var2 = request.args.get('var2')
+
     return jsonify(simi(var1, var2))
 
 

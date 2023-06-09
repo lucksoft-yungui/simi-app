@@ -11,6 +11,8 @@
         <button id="submit">提交</button>
 
         <p id="result"></p>
+        <p id="tag1"></p>
+        <p id="tag2"></p>
 
         <script>
             $(document).ready(function() {
@@ -22,6 +24,8 @@
                     $.get(url, function(data, status) {
                         console.log("Data: " + data.result + "\nStatus: " + status);
                         $("#result").html(data.result);
+                        $("#tag1").html("句子1分词：" + data.tag1);
+                        $("#tag2").html("句子2分词：" + data.tag2);
                     });
                 });
             });

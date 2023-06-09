@@ -1,6 +1,6 @@
 from paddlenlp import Taskflow
 import re
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 
 SERVICE_IP = "0.0.0.0"
 SERVICE_PORT = 8686
@@ -53,7 +53,7 @@ app = Flask(__name__, static_folder='static')
 
 @app.route('/')
 def home():
-    return app.send_static_file('index.html')
+    return render_template('index.html')
 
 
 @app.route('/simi', methods=['GET'])

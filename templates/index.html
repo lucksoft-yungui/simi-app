@@ -1,14 +1,26 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>句子相似度比较</title>
+        <title>文字相似度比较</title>
         <script src="{{ url_for('static', filename='jquery.min.js') }}"></script>
+        <style>
+            .in{
+                width: 300px;
+                height: 30px;
+                display: block;
+                margin-bottom: 20px;
+             }
+             .sm{
+                width: 120px;
+                height: 40px;
+             }
+        </style>
     </head>
     <body>
-        <h1>句子相似度比较</h1>
-        <input type="text" id="sentence1" placeholder="请输入第一个句子">
-        <input type="text" id="sentence2" placeholder="请输入第二个句子">
-        <button id="submit">提交</button>
+        <h1>文字相似度比较</h1>
+        <input type="text" id="sentence1" placeholder="目标文字" class="in">
+        <input type="text" id="sentence2" placeholder="标准文字" class="in">
+        <button id="submit" class="sm">提交</button>
 
         <p id="result"></p>
         <p id="tag1"></p>
@@ -20,15 +32,39 @@
                     var sentence1 = encodeURIComponent($('#sentence1').val());
                     var sentence2 = encodeURIComponent($('#sentence2').val());
                     var url = '/simi?var1=' + sentence1 + '&var2=' + sentence2;
-
+        
                     $.get(url, function(data, status) {
                         console.log("Data: " + data.result + "\nStatus: " + status);
-                        $("#result").html(data.result);
-                        $("#tag1").html("句子1分词：" + data.tag1);
-                        $("#tag2").html("句子2分词：" + data.tag2);
+                        $("#result").html("相似度比较结果：" + data.result);
+                    
+                        var matched_words = JSON.parse(data.matched_words);
+                        var tag1 = JSON.parse(data.tag1);
+                        var tag2 = JSON.parse(data.tag2);
+                        
+                        var tag1Html = "句子1分词：";
+                        tag1.forEach(function(item) {
+                            if (matched_words.includes(item[0])) {
+                                tag1Html += "<span style='border: 1px solid red;'>" + item[0] + "</span>";
+                            } else {
+                                tag1Html += item[0];
+                            }
+                            tag1Html += " ";
+                        });
+                        $("#tag1").html(tag1Html);
+        
+                        var tag2Html = "句子2分词：";
+                        tag2.forEach(function(item) {
+                            if (matched_words.includes(item[0])) {
+                                tag2Html += "<span style='border: 1px solid red;'>" + item[0] + "</span>";
+                            } else {
+                                tag2Html += item[0];
+                            }
+                            tag2Html += " ";
+                        });
+                        $("#tag2").html(tag2Html);
                     });
                 });
             });
-        </script>
+        </script>        
     </body>
 </html>

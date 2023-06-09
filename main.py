@@ -24,9 +24,9 @@ def simi(var1: str, var2: str) -> dict:
 
     return {
         "result": f"句子[{var1}]与句子[{var2}]的相似度为{similarity}%",
-        "tag1": json.dumps(tag1),
-        "tag2": json.dumps(tag2),
-        "matched_words": json.dumps(matched_words)
+        "tag1": [[word, type] for word, type in tag(var1)],
+        "tag2": [[word, type] for word, type in tag(var2)],
+        "matched_words": matched_words
     }
 
 
